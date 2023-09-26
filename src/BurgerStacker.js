@@ -21,7 +21,8 @@ export default class BurgerStacker extends Component {
             {name: 'Lettuce', color: 'lawngreen'},
             {name: 'Tomato', color: 'tomato'},
             {name: 'Bacon', color: 'maroon'},
-            {name: 'Onion', color: 'lightyellow'}
+            {name: 'Onion', color: 'lightyellow'},
+            {name: 'Cheese', color: 'gold'}
         ],
         burgerIngredients: []
     }
@@ -50,6 +51,31 @@ export default class BurgerStacker extends Component {
             ]
         })
     }
+
+    // this method removes individuals items on click
+    removeFromStack = (e) => {
+        console.log('the original burger ingredients', this.state.burgerIngredients)
+        // this will need to target an item in the burgerIngredients array
+        const clickIndex = e.target.id
+        console.log('the index of the item clicked', clickIndex)
+        // remove that one piece
+        // we'll use slice which creates a copy of the original array
+        const currBurger = this.state.burgerIngredients.slice()
+        // splice out the selected item
+        currBurger.splice(clickIndex, 1)
+        console.log('this is the current burger', currBurger)
+        // set state with the newly updated array
+        this.setState({
+            burgerIngredients: currBurger
+        })
+    }
+
+    // this clears the burgerIngredients
+    clearBurger = () => {
+        this.setState({
+            burgerIngredients: []
+        })
+    }
     
     // class components are built with a render method, that tells react what to display on the screen.
     render () {
@@ -59,11 +85,13 @@ export default class BurgerStacker extends Component {
                 <h1>Burger Stacker</h1>
                 <div className='panes'>
                     <IngList 
-                        ingredients={ this.state.ingredients }
+                        ingredients={this.state.ingredients }
                         add={this.addToStack}
                     />
                     <BurgerPane 
-                        ingredients={ this.state.burgerIngredients}
+                        ingredients={this.state.burgerIngredients}
+                        clear={this.clearBurger}
+                        remove={this.removeFromStack}
                     />
                 </div>
             </>
