@@ -10,21 +10,24 @@ export default class IngList extends Component {
         console.log('props inside INGList', this.props)
         // this is called destructuring, very commonly used in react
         // with this syntax, we can pull items from objects and arrays
-        const { ingredients } = this.props
+        const { ingredients, add } = this.props
         
         let allIngs = ingredients.map((ing, i) => (
             <li key={i}>
-                <Ingredient ingredient={ing} />
+                <Ingredient 
+                    ingredient={ing}
+                    clickFunc={add}
+                />
             </li>
         ))
 
         return (
-            <>
-                <p>Ingredient List</p>
+            <section className='pane'>
+                <h3>Ingredient List</h3>
                 <ul>
                     { allIngs }
                 </ul>
-            </>
+            </section>
         )
     }
 }
